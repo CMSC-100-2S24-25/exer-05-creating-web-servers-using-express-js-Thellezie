@@ -9,8 +9,7 @@
     "start": "node server.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://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@github.com/CMSC-100-2S24-25/exer-05-creating-web-servers-using-express-js-Thellezie.git"
+    "type": "git"
   },
   "keywords": [],
   "author": "",
