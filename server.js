@@ -2,8 +2,9 @@
 * CMSC 100 - C1L
 * Author : Luthelle L. Fernandez
 * Student Number : 2023 - 12438
-* Date: March 04, 2025
+* Lab Date : March 04, 2025
 */
+
 
 // Import Modules
 import express from 'express';
@@ -42,25 +43,19 @@ function readBooks() {
 //  POST : add-book
 app.post('/add-book', (req, res) => {
     const { Bookname, ISBN, Author, YearPublished } = req.body;
+  
     // (1) Ensure all are not empty string
     if (!Bookname || !ISBN || !Author || !YearPublished) {
-        return res.json({ success: false });
+        return console.log({ success: false });
     }
 
     // (2) If no found empty string in req.body, Save the data to a file books.txt 
     // formatting: book name,isbn,author,year published
     const book_info = `${Bookname},${ISBN},${Author},${YearPublished}\n`;
     appendFileSync(TEXTFILE, book_info, 'utf8');
-    res.json({ success: true }); // print in terminal if the book is saved in the books.txt
+    console.log({ success: true }); // print in terminal if the book is saved in the books.txt
 
 }) ;
-
-/*
-app.get('/', (req, res) => { 
-    res.send('Hello! Luthelle'); 
-    }); 
- 
-*/
 
 // GET : ISBN and Author
 app.get('/find-by-isbn-author', (req, res) => {
@@ -95,7 +90,24 @@ app.get('/find-by-isbn-author', (req, res) => {
 
 
 // GET: Find all books by Author
-// app.get('/find-by-author', (req, res) => {
-//     const author = req.query.author?.replace('+', ' ');
+app.get('/find-by-author', (req, res) => {
+    const author = req.query.author;
 
-// });
+    if (!author) return console.log({ success: false });
+
+    const books = readBooks(); // read books.txt
+    let foundBooks = [];
+
+    // Find all books by Author
+    for (let i = 0; i < books.length; i++) {
+        if (books[i].Author === author) {
+            foundBooks.push(books[i].Bookname); // kunin lng bookname
+        }
+    }
+
+    if (foundBooks.length) {
+        res.send(foundBooks.join('<br>'));
+    } else {
+        console.log({ success: false });
+    }
+});

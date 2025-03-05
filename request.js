@@ -59,12 +59,17 @@ needle.post(
     'http://localhost:3000/find-by-isbn-author?isbn=978-0-7475-3269-9&author=J.K+Rowling',
     {},
     (err, res) => {
+        if (err) console.error(err);
         console.log(res.body);
     }
 );
 
 // // Find by Author
-// needle.get('http://localhost:3000/find-by-author?author=J.K+Rowling', (err, res) => {
-//     if (err) console.error(err);
-//     else console.log(res.body);
-// });
+needle.post(
+    'http://localhost:3000/find-by-author?author=J.K+Rowling', 
+    {},
+
+    (err, res) => {
+    if (err) console.error(err);
+    else console.log(res.body);
+});
