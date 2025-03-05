@@ -2,12 +2,15 @@
 * CMSC 100 - C1L
 * Author : Luthelle L. Fernandez
 * Student Number : 2023 - 12438
-* Date: March 04, 2025
+* Lab Date: March 04, 2025
 */
 
 // Import Modules
 import needle from 'needle';
 
+needle.get('http://localhost:3000/', (err, res) => {
+     console.log(res.body);
+})
 needle.post(
     'http://localhost:3000/add-book',
     
@@ -43,9 +46,25 @@ needle.post(
       ISBN: '978-0156012195',
       Author: 'Antoine Saint-Exupery',
       YearPublished: '1943',
-     }, 
+    }, 
     
     (err, res) => {
     console.log(res.body);
     }
 );
+
+
+// Find by ISBN and Author
+needle.post(
+    'http://localhost:3000/find-by-isbn-author?isbn=978-0-7475-3269-9&author=J.K+Rowling',
+    {},
+    (err, res) => {
+        console.log(res.body);
+    }
+);
+
+// // Find by Author
+// needle.get('http://localhost:3000/find-by-author?author=J.K+Rowling', (err, res) => {
+//     if (err) console.error(err);
+//     else console.log(res.body);
+// });
